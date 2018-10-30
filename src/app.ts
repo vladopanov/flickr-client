@@ -1,7 +1,7 @@
 import { AjaxService } from '@services/AjaxService';
 import { PhotoService } from '@services/PhotoService';
-import { PhotoStore } from '@src/features/photos/PhotoStore';
-import { Constants } from '@src/utils/constants';
+import { PhotosStore } from '@src/features/photos/PhotosStore';
+import { CONSTANTS } from './utils/constants';
 
 export class App {
   public stores: Record<string, any> = {};
@@ -23,6 +23,6 @@ export class App {
   }
 
   private registerStores(): void {
-    this.stores[Constants.STORE_PHOTO] = new PhotoStore(this.photoService);
+    this.stores[CONSTANTS.STORE_PHOTO] = new PhotosStore(this.photoService);
   }
 }
