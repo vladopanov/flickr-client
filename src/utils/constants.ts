@@ -1,3 +1,3 @@
-export const Constants = {
-  STORE_PHOTO: 'photo'
-};
+export namespace CONSTANTS {
+  export const STORE_PHOTO = 'photo';
+}
