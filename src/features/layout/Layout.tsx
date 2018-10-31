@@ -11,7 +11,9 @@ export class Layout extends React.Component<LayoutProps, {}> {
     return <div className='layout'>
       <HeaderView />
       <main role='main'>
-        {this.props.children}
+        <div className='container'>
+          {this.props.children}
+        </div>
       </main>
       <FooterView />
     </div>;

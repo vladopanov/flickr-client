@@ -108,6 +108,7 @@ let config = {
     extractStyles,
     new HtmlWebpackPlugin({
       template: `${BASE_PATH}/public/index.html`,
+      favicon: `${BASE_PATH}/public/favicon.ico`,
       inject: true,
       minify: {
         collapseWhitespace: true
