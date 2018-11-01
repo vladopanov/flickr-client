@@ -1,24 +1,24 @@
-interface IAjaxService {
-  get(props: IAjaxRequestOptions): Promise<IAjaxResponse>;
-  post(props: IAjaxRequestOptions): Promise<IAjaxResponse>;
-  delete(props: IAjaxRequestOptions): Promise<IAjaxResponse>;
-  put(props: IAjaxRequestOptions): Promise<IAjaxResponse>;
-  patch(props: IAjaxRequestOptions): Promise<IAjaxResponse>;
+interface IRestService {
+  get(props: IRestRequestOptions): Promise<IRestResponse>;
+  post(props: IRestRequestOptions): Promise<IRestResponse>;
+  delete(props: IRestRequestOptions): Promise<IRestResponse>;
+  put(props: IRestRequestOptions): Promise<IRestResponse>;
+  patch(props: IRestRequestOptions): Promise<IRestResponse>;
 }
 
-interface IAjaxRequestWrapper {
+interface IRestRequestWrapper {
   request: XMLHttpRequest;
   url: string;
   headers: Record<string, string>;
   data?: any;
 }
 
-export interface IAjaxResponse {
+export interface IRestResponse {
   status: number;
   data?: string;
 }
 
-export interface IAjaxRequestOptions {
+export interface IRestRequestOptions {
   url: string;
   data?: any;
   params?: Record<string, string | number | boolean>;
@@ -28,39 +28,39 @@ export interface IAjaxRequestOptions {
 
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
 
-export class AjaxService implements IAjaxService {
+export class RestService implements IRestService {
   private defaultHeaders: Record<string, string> = {
   };
 
   constructor() {
   }
 
-  public async get(props: IAjaxRequestOptions): Promise<IAjaxResponse> {
+  public async get(props: IRestRequestOptions): Promise<IRestResponse> {
     const request = this.createRequest('GET', props);
     return this.sendRequest(request);
   }
 
-  public async post(props: IAjaxRequestOptions): Promise<IAjaxResponse> {
+  public async post(props: IRestRequestOptions): Promise<IRestResponse> {
     const request = this.createRequest('POST', props);
     return this.sendRequest(request);
   }
 
-  public async put(props: IAjaxRequestOptions): Promise<IAjaxResponse> {
+  public async put(props: IRestRequestOptions): Promise<IRestResponse> {
     const request = this.createRequest('PUT', props);
     return this.sendRequest(request);
   }
 
-  public async delete(props: IAjaxRequestOptions): Promise<IAjaxResponse> {
+  public async delete(props: IRestRequestOptions): Promise<IRestResponse> {
     const request = this.createRequest('DELETE', props);
     return this.sendRequest(request);
   }
 
-  public async patch(props: IAjaxRequestOptions): Promise<IAjaxResponse> {
+  public async patch(props: IRestRequestOptions): Promise<IRestResponse> {
     const request = this.createRequest('PATCH', props);
     return this.sendRequest(request);
   }
 
-  public createRequest(httpMethod: HttpMethod, props: IAjaxRequestOptions): IAjaxRequestWrapper {
+  public createRequest(httpMethod: HttpMethod, props: IRestRequestOptions): IRestRequestWrapper {
     const oldParams: Record<string, string> = {};
     const request = new XMLHttpRequest();
     const formattedHeaders = {};
@@ -79,6 +79,12 @@ export class AjaxService implements IAjaxService {
 
     props.url = encodeURI(props.url);
     request.open(httpMethod, props.url, true);
+    // Avoid REST caching to update values in IE11
+    request.setRequestHeader('Cache-Control', 'no-cache');
+    request.setRequestHeader('Cache-Control', 'no-store');
+    request.setRequestHeader('Pragma', 'no-cache');
+    request.setRequestHeader('Expires', '0');
+    request.setRequestHeader('Access-Control-Allow-Origin', '*');
 
     Object.keys(headers).forEach((key) => {
       const value = headers[key];
@@ -88,15 +94,15 @@ export class AjaxService implements IAjaxService {
     return { request, headers, data: props.data, url: props.url };
   }
 
-  private async sendRequest(ajaxRequest: IAjaxRequestWrapper): Promise<IAjaxResponse> {
-    let request = ajaxRequest.request;
-    const data = ajaxRequest.data;
+  private async sendRequest(restRequest: IRestRequestWrapper): Promise<IRestResponse> {
+    let request = restRequest.request;
+    const data = restRequest.data;
 
-    const requestPromise = new Promise<IAjaxResponse>((resolve, reject) => {
+    const requestPromise = new Promise<IRestResponse>((resolve, reject) => {
       request.onreadystatechange = function handleOnReadyStateChange() {
         if (this.readyState !== XMLHttpRequest.DONE) return;
 
-        const response = <IAjaxResponse> {
+        const response = <IRestResponse> {
           status: this.status,
           data: this.responseText
         };
@@ -108,7 +114,7 @@ export class AjaxService implements IAjaxService {
 
       // Handle browser request cancellation (as opposed to a manual cancellation)
       request.onabort = function handleOnAbort() {
-        reject(<IAjaxResponse> {
+        reject(<IRestResponse> {
           status: this.status,
           data: this.responseText
         });
@@ -118,7 +124,7 @@ export class AjaxService implements IAjaxService {
 
       // Handle timeout
       request.ontimeout = function handleTimeout() {
-        reject(<IAjaxResponse> {
+        reject(<IRestResponse> {
           status: this.status,
           data: this.responseText
         });
@@ -128,7 +134,7 @@ export class AjaxService implements IAjaxService {
 
       // Handle low level network errors
       request.onerror = function handleError() {
-        reject(<IAjaxResponse> {
+        reject(<IRestResponse> {
           status: this.status,
           data: this.responseText
         });

@@ -1,3 +1,3 @@
 export namespace CONSTANTS {
-  export const STORE_PHOTO = 'photo';
+  export const STORE_FEED = 'feedStore';
 }
