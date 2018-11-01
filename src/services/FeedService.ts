@@ -5,8 +5,8 @@ export class FeedService {
   constructor() {
   }
 
-  public async fetchFeeds(): Promise<Feed[]> {
-    const url = `${CONSTANTS.FEEDS_URL}/photos_public.gne?format=json&tagMode=safe&jsoncallback=?`;
+  public async fetchFeeds(value?: string): Promise<Feed[]> {
+    const url = `${CONSTANTS.FEEDS_URL}/photos_public.gne?format=json&tags=${value}&jsoncallback=?`;
     const options = {
       url: url,
       dataType: 'jsonp'
@@ -20,28 +20,10 @@ export class FeedService {
       });
 
     return result;
-
-    // this.ajaxService.get({
-    //   url: 'https://api.flickr.com/services/rest/',
-    //   params: {
-    //     method: 'flickr.photos.getRecent',
-    //     format: 'json',
-    //     api_key: '1f734d1b47bd79590fcb6634156dedb2',
-    //     nojsoncallback: 1
-    //   }
-    // })
-    //   .then(resp => {
-    //     const data = JSON.parse(resp.data);
-    //     return this.mapListFrcomDto(data);
-    //   })
-    //   .catch(err => {
-    //     console.error(err);
-    //   });
   }
 
   private mapFeedListFromDto(items: any[]): Feed[] {
     const feeds = [];
-    // const name = 'nobody@flickr.com ("filistinhaberajansı")';
     items.map(item => {
       const feed = {
         authorFlickrLink: `https://www.flickr.com/people/${item.author_id}/`,

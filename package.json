@@ -30,6 +30,8 @@
     "@types/react-hot-loader": "~4.1.0",
     "@types/react-router": "~4.0.27",
     "@types/react-router-dom": "~4.2.7",
+    "@types/react-infinite-scroller": "^1.0.8",
+    "@types/bootstrap": "^4.1.2",
     "css-loader": "~0.28.9",
     "expose-loader": "^0.7.1",
     "extract-text-webpack-plugin": "~3.0.2",
