@@ -1,6 +1,6 @@
 import { FeedService } from '@services/FeedService';
 import { Feed } from '@models/Feed';
-import { action, runInAction, observable } from 'mobx';
+import { action, observable } from 'mobx';
 
 export class FeedStore {
   @observable public feeds: Feed[];
@@ -13,8 +13,11 @@ export class FeedStore {
   @action
   public async searchFeeds(): Promise<void> {
     const feeds = await this.feedService.fetchFeeds();
-    runInAction(() => {
-      this.feeds = feeds;
-    });
+    this.setFeeds(feeds);
+  }
+
+  @action.bound
+  private setFeeds(feeds: Feed[]): void {
+    this.feeds = feeds;
   }
 }
