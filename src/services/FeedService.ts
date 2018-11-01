@@ -5,13 +5,10 @@ export class FeedService {
   }
 
   public async fetchFeeds(): Promise<Feed[]> {
-    const url = 'https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=?';
+    const url = 'https://api.flickr.com/services/feeds/photos_public.gne?format=json&tagMode=safe&jsoncallback=?';
     const options = {
       url: url,
-      dataType: 'jsonp',
-      data: {
-        tagMode: 'safe'
-      }
+      dataType: 'jsonp'
     };
     const result = await $.ajax(options).then((data) => {
       const feeds = this.mapFeedListFromDto(data.items);

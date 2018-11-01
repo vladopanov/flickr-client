@@ -7,7 +7,6 @@ export class FeedStore {
 
   constructor(private feedService: FeedService) {
     this.feeds = [];
-    this.searchFeeds();
   }
 
   @action
@@ -18,6 +17,6 @@ export class FeedStore {
 
   @action.bound
   private setFeeds(feeds: Feed[]): void {
-    this.feeds = feeds;
+    this.feeds = this.feeds.slice(0).concat(feeds);
   }
 }
