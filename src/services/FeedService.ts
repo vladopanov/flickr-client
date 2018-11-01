@@ -5,8 +5,8 @@ export class FeedService {
   constructor() {
   }
 
-  public async fetchFeeds(): Promise<Feed[]> {
-    const url = `${CONSTANTS.FEEDS_URL}/photos_public.gne?format=json&tagMode=safe&jsoncallback=?`;
+  public async fetchFeeds(tag: string): Promise<Feed[]> {
+    const url = `${CONSTANTS.FEEDS_URL}/photos_public.gne?format=json&tagMode=safe&tags=${tag}&jsoncallback=?`;
     const options = {
       url: url,
       dataType: 'jsonp'

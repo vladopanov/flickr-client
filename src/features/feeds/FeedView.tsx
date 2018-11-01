@@ -5,6 +5,7 @@ import { CONSTANTS } from '@src/utils/constants';
 import { FeedStore } from './FeedStore';
 import { FeedItem } from './elements/FeedItem';
 import InfiniteScroll from 'react-infinite-scroller';
+import { FeedFilter } from './elements/FeedFilter';
 
 interface IProps extends RouteComponentProps {
   feedStore: FeedStore;
@@ -16,6 +17,7 @@ export class FeedView extends React.Component<IProps, {}> {
   constructor(props) {
     super(props);
     this.handleLoadMore = this.handleLoadMore.bind(this);
+    this.searchByTag = this.searchByTag.bind(this);
   }
 
   public render() {
@@ -26,6 +28,9 @@ export class FeedView extends React.Component<IProps, {}> {
 
     return <div className='album py-5 bg-light'>
       <div className='container'>
+        <FeedFilter
+          searchByTag={this.searchByTag}
+        />
         <InfiniteScroll
           className='row'
           pageStart={0}
@@ -42,5 +47,9 @@ export class FeedView extends React.Component<IProps, {}> {
 
   private handleLoadMore() {
     this.props.feedStore.searchFeeds();
+  }
+
+  private searchByTag(value: string) {
+    this.props.feedStore.setTag(value);
   }
 }
