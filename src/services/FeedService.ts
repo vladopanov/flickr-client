@@ -8,7 +8,10 @@ export class FeedService {
     const url = 'https://api.flickr.com/services/feeds/photos_public.gne?format=json&jsoncallback=?';
     const options = {
       url: url,
-      dataType: 'jsonp'
+      dataType: 'jsonp',
+      data: {
+        tagMode: 'safe'
+      }
     };
     const result = await $.ajax(options).then((data) => {
       const feeds = this.mapFeedListFromDto(data.items);
@@ -40,10 +43,11 @@ export class FeedService {
 
   private mapFeedListFromDto(items: any[]): Feed[] {
     const feeds = [];
+    // const name = 'nobody@flickr.com ("filistinhaberajansı")';
     items.map(item => {
       const feed = {
         authorFlickrLink: `https://www.flickr.com/people/${item.author_id}/`,
-        authorName: item.author,
+        authorName: item.author.match(/\("(.*)"\)/i)[1],
         description: item.description,
         imageFlickrLink: item.link,
         imageTitle: item.title,

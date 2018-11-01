@@ -3,7 +3,7 @@ import { observer, inject } from 'mobx-react';
 import { RouteComponentProps } from 'react-router';
 import { CONSTANTS } from '@src/utils/constants';
 import { FeedStore } from './FeedStore';
-import { FeedCol } from './elements/FeedCol';
+import { FeedItem } from './elements/FeedItem';
 
 interface IProps extends RouteComponentProps {
   feedStore: FeedStore;
@@ -19,7 +19,7 @@ export class FeedView extends React.Component<IProps, {}> {
   public render() {
     const feeds = this.props.feedStore.feeds;
     const cols = feeds.map((feed, index) => {
-      return <FeedCol key={index} feed={feed} />;
+      return <FeedItem key={index} feed={feed} />;
     });
 
     return <div className='album py-5 bg-light'>
