@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router';
 import { CONSTANTS } from '@src/utils/constants';
 import { FeedStore } from './FeedStore';
 import { FeedItem } from './elements/FeedItem';
-import InfiniteScroll from 'react-infinite-scroller';
+import * as InfiniteScroll from 'react-infinite-scroller';
 import { FeedFilter } from './elements/FeedFilter';
 
 interface IProps extends RouteComponentProps {
@@ -36,7 +36,7 @@ export class FeedView extends React.Component<IProps, {}> {
           pageStart={0}
           loadMore={this.handleLoadMore}
           hasMore={true || false}
-          loader={<div className='loader' key={0}>Loading ...</div>}
+          loader={<div className='loader' key={0}>There are no more feeds.</div>}
           useWindow={true}
         >
           {feedItems}
@@ -46,10 +46,10 @@ export class FeedView extends React.Component<IProps, {}> {
   }
 
   private handleLoadMore() {
-    this.props.feedStore.searchFeeds();
+    this.props.feedStore.loadMoreFeeds();
   }
 
   private searchByTag(value: string) {
-    this.props.feedStore.setTag(value);
+    this.props.feedStore.setTags(value);
   }
 }

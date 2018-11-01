@@ -14,9 +14,9 @@ export class FeedItem extends React.Component<IProps, {}> {
         <div className='description-img'>{description[1]}</div>
         <div className='card-body'>
           <div className='card-text title'>
-            <a href={this.props.feed.imageFlickrLink}>{this.props.feed.imageTitle}</a>
+            <a target='_blank' rel='noopener noreferrer' href={this.props.feed.imageFlickrLink}>{this.props.feed.imageTitle}</a>
             &nbsp;by&nbsp;
-            <a href={this.props.feed.authorFlickrLink}>{this.props.feed.authorName}</a>
+            <a target='_blank' rel='noopener noreferrer' href={this.props.feed.authorFlickrLink}>{this.props.feed.authorName}</a>
           </div>
           <div>
             <strong>Description: </strong>
@@ -31,8 +31,7 @@ export class FeedItem extends React.Component<IProps, {}> {
   }
 
   private mapDescription(): React.ReactNode {
-    // Firstly I thought to use the dto's direct props for rendering author, image, etc
-    // but then I realized using the description parsed html would be better because of some useful styles and props.
+    // Using the description props instead of direct feed's props is better because of useful styles and props.
     const description = ReactHtmlParser(this.props.feed.description).filter((el => {
       return el.type === 'p';
     }));
