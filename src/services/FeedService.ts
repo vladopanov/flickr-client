@@ -1,11 +1,12 @@
 import { Feed } from '@models/Feed';
+import { CONSTANTS } from '@src/utils/constants';
 
 export class FeedService {
   constructor() {
   }
 
   public async fetchFeeds(): Promise<Feed[]> {
-    const url = 'https://api.flickr.com/services/feeds/photos_public.gne?format=json&tagMode=safe&jsoncallback=?';
+    const url = `${CONSTANTS.FEEDS_URL}/photos_public.gne?format=json&tagMode=safe&jsoncallback=?`;
     const options = {
       url: url,
       dataType: 'jsonp'
