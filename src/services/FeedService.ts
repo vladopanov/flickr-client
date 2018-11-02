@@ -1,12 +1,14 @@
 import { Feed } from '@models/Feed';
 import { CONSTANTS } from '@src/utils/constants';
+import { SafeModeService } from './SafeModeService';
 
 export class FeedService {
-  constructor() {
+  constructor(private safeMode: SafeModeService) {
   }
 
   public async fetchFeeds(value?: string): Promise<Feed[]> {
-    const url = `${CONSTANTS.FEEDS_URL}/photos_public.gne?format=json&tags=${value}&jsoncallback=?`;
+    const tags = this.safeMode.isSafe ? value + 'safe' : value;
+    const url = `${CONSTANTS.FEEDS_URL}/photos_public.gne?format=json&tagmode=any&tags=${tags}&jsoncallback=?`;
     const options = {
       url: url,
       dataType: 'jsonp'

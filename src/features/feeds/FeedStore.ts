@@ -1,19 +1,33 @@
 import { FeedService } from '@services/FeedService';
 import { Feed } from '@models/Feed';
 import { action, observable, computed } from 'mobx';
+import { SafeModeService } from '@services/SafeModeService';
 
 export class FeedStore {
   @observable private feedsCollection: Map<string, Feed>;
   @observable private tags: string;
 
-  constructor(private feedService: FeedService) {
+  constructor(private feedService: FeedService, private safeMode: SafeModeService) {
     this.resetFeeds();
     this.resetTags();
   }
 
   @computed
+  public get isSafe(): boolean {
+    return this.safeMode.isSafe;
+  }
+
+  @computed
   public get feeds(): Feed[] {
     return Array.from(this.feedsCollection.values()).slice(0);
+  }
+
+  @action
+  public toggleSafeMode(): void {
+    this.isSafe ? this.safeMode.turnOffSafeMode() : this.safeMode.turnOnSafeMode();
+
+    this.resetFeeds();
+    this.loadMoreFeeds();
   }
 
   @action
