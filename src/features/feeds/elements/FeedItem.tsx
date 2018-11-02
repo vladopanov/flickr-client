@@ -18,13 +18,13 @@ export class FeedItem extends React.Component<IProps, {}> {
             &nbsp;by&nbsp;
             <a target='_blank' rel='noopener noreferrer' href={this.props.feed.authorFlickrLink}>{this.props.feed.authorName}</a>
           </div>
-          <div>
+          {description[2] && <div>
             <strong>Description: </strong>
-            <span className='description'>{description[2] ? description[2] : null}</span>
-          </div>
-          <div className='tags'>
+            <span className='description'>{description[2]}</span>
+          </div>}
+          {this.props.feed.tags && <div className='tags'>
             <strong>Tags:</strong> <span>{this.props.feed.tags}</span>
-          </div>
+          </div>}
         </div>
       </div>
     );

@@ -6,7 +6,6 @@
   "dependencies": {
     "babel-polyfill": "^6.26.0",
     "bootstrap": "^4.1.3",
-    "cross-env": "~5.1.4",
     "jquery": "~3.2.1",
     "mobx": "~4.1.1",
     "mobx-react": "~5.0.0",
@@ -16,11 +15,7 @@
     "react-dom": "~16.3.0",
     "react-html-parser": "^2.0.2",
     "react-infinite-scroller": "^1.2.2",
-    "react-router-dom": "~4.3.1",
-    "ts-loader": "~3.5.0",
-    "tslib": "~1.9.0",
-    "tslint": "^5.11.0",
-    "typescript": "^3.0.1"
+    "react-router-dom": "~4.3.1"
   },
   "devDependencies": {
     "@types/history": "~4.6.2",
@@ -47,7 +42,12 @@
     "url-loader": "^1.0.1",
     "webpack": "~3.11.0",
     "webpack-dev-server": "~2.11.1",
-    "webpack-watch-time-plugin": "^0.1.2"
+    "webpack-watch-time-plugin": "^0.1.2",
+    "cross-env": "~5.1.4",
+    "ts-loader": "~3.5.0",
+    "tslib": "~1.9.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.0.1"
   },
   "scripts": {
     "clean": "rimraf dist",

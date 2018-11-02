@@ -1,8 +1,7 @@
 import 'babel-polyfill';
-import 'jquery';
 import 'bootstrap';
-import './styles/site.css';
 import '../node_modules/bootstrap/scss/bootstrap.scss';
+import './styles/site.css';
 import * as React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import { render } from 'react-dom';
