@@ -39,65 +39,68 @@ let config = {
   },
 
   module: {
-    rules: [
-      {
-      test: /\.tsx?$/,
-      enforce: "pre",
-      loader: "tslint-loader",
-      options: {
-        configFile: "./tslint.json",
-        failOnHint: false,
-        fix: true
-      }
-    },
-    {
-      test: /\.tsx?$/,
-      use: "ts-loader",
-      exclude: /node_modules/
-    },
-    {
-      test: /\.(sass|scss|css)$/,
-      loader: extractStyles.extract({
-        fallback: "style-loader",
-        use: [{
-          loader: "css-loader?minimize",
-        },
-        {
-          loader: "sass-loader"
-        }
-        ]
-      })
-    },
-    {
-      test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-      loader: `url-loader?limit=10000&mimetype=application/octet-stream&name=${setUrlLoaderOutput('fonts')}`,
-    },
-    {
-      test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-      loader: `url-loader?limit=10000&mimetype=image/svg+xml&name=${setUrlLoaderOutput('imgs')}`,
-    },
-    {
-      test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-      loader: 'file-loader',
-      options: {
-        name: file => {
-          return IS_DEVELOPMENT ? 'fonts/[name].[ext]' : 'fonts/[hash].[ext]'
-        }
-      }
-    },
-    {
-      test: /\.(woff|woff2)$/,
-      loader: `url-loader?prefix=font/&limit=5000&name=${setUrlLoaderOutput('fonts')}`,
-    },
-    {
-      test: /\.(png|jpg|gif)$/,
-      use: [{
-        loader: `url-loader?name=${setUrlLoaderOutput('imgs')}`,
+    rules: [{
+        test: /\.tsx?$/,
+        enforce: "pre",
+        loader: "tslint-loader",
         options: {
-          limit: 8192,
+          configFile: "./tslint.json",
+          failOnHint: false,
+          fix: true
         }
-      }]
-    }
+      },
+      {
+        test: /\.tsx?$/,
+        use: "ts-loader",
+        exclude: /node_modules/
+      },
+      {
+        test: /\.(sass|scss|css)$/,
+        loader: extractStyles.extract({
+          fallback: "style-loader",
+          use: [{
+              loader: "css-loader?minimize",
+            },
+            {
+              loader: "sass-loader"
+            }
+          ]
+        })
+      },
+      {
+        test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+        loader: `url-loader?limit=10000&mimetype=application/octet-stream&name=${setUrlLoaderOutput('fonts')}`,
+      },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        loader: `url-loader?limit=10000&mimetype=image/svg+xml&name=${setUrlLoaderOutput('imgs')}`,
+      },
+      {
+        test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+        loader: 'file-loader',
+        options: {
+          name: file => {
+            return IS_DEVELOPMENT ? 'fonts/[name].[ext]' : 'fonts/[hash].[ext]'
+          }
+        }
+      },
+      {
+        test: /\.(woff|woff2)$/,
+        loader: `url-loader?prefix=font/&limit=5000&name=${setUrlLoaderOutput('fonts')}`,
+      },
+      {
+        test: /\.(png|jpg|gif)$/,
+        use: [{
+          loader: `url-loader?name=${setUrlLoaderOutput('imgs')}`,
+          options: {
+            limit: 8192,
+          }
+        }]
+      },
+      {
+        test: require.resolve('jquery'),
+        loader: 'expose-loader?jQuery!expose-loader?$',
+      }
     ]
   },
 
@@ -105,6 +108,7 @@ let config = {
     extractStyles,
     new HtmlWebpackPlugin({
       template: `${BASE_PATH}/public/index.html`,
+      favicon: `${BASE_PATH}/public/favicon.ico`,
       inject: true,
       minify: {
         collapseWhitespace: true
