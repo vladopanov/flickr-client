@@ -6,6 +6,7 @@ import { FeedStore } from './FeedStore';
 import { FeedItem } from './elements/FeedItem';
 import * as InfiniteScroll from 'react-infinite-scroller';
 import { FeedFilter } from './elements/FeedFilter';
+import { SafeModeSwitch } from './elements/SafeModeSwitch';
 
 interface IProps extends RouteComponentProps {
   feedStore: FeedStore;
@@ -18,6 +19,7 @@ export class FeedView extends React.Component<IProps, {}> {
     super(props);
     this.handleLoadMore = this.handleLoadMore.bind(this);
     this.searchByTag = this.searchByTag.bind(this);
+    this.switchSafeMode = this.switchSafeMode.bind(this);
   }
 
   public render() {
@@ -28,6 +30,10 @@ export class FeedView extends React.Component<IProps, {}> {
 
     return <div className='album py-5 bg-light'>
       <div className='container'>
+        <SafeModeSwitch
+          isSafe={this.props.feedStore.isSafe}
+          switchSafeMode={this.switchSafeMode}
+        />
         <FeedFilter
           searchByTag={this.searchByTag}
         />
@@ -45,11 +51,15 @@ export class FeedView extends React.Component<IProps, {}> {
     </div>;
   }
 
-  private handleLoadMore() {
+  private handleLoadMore(): void {
     this.props.feedStore.loadMoreFeeds();
   }
 
-  private searchByTag(value: string) {
+  private searchByTag(value: string): void {
     this.props.feedStore.setTags(value);
+  }
+
+  private switchSafeMode(): void {
+    this.props.feedStore.toggleSafeMode();
   }
 }

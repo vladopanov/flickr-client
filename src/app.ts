@@ -1,13 +1,13 @@
-// import { AjaxService } from '@services/AjaxService';
 import { FeedService } from '@services/FeedService';
 import { CONSTANTS } from './utils/constants';
 import { useMobxDevTools } from './utils/mobx-react-devtools';
 import { FeedStore } from './features/feeds/FeedStore';
+import { SafeModeService } from '@services/SafeModeService';
 
 export class App {
   public stores: Record<string, any> = {};
 
-  // private ajaxService: AjaxService;
+  private safeModeService: SafeModeService;
   private photoService: FeedService;
 
   constructor() {
@@ -21,11 +21,11 @@ export class App {
   }
 
   private registerServices(): void {
-    // this.ajaxService = new AjaxService();
-    this.photoService = new FeedService();
+    this.safeModeService = new SafeModeService();
+    this.photoService = new FeedService(this.safeModeService);
   }
 
   private registerStores(): void {
-    this.stores[CONSTANTS.STORE_FEED] = new FeedStore(this.photoService);
+    this.stores[CONSTANTS.STORE_FEED] = new FeedStore(this.photoService, this.safeModeService);
   }
 }
