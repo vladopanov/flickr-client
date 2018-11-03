@@ -42,7 +42,7 @@ export class FeedView extends React.Component<IProps, {}> {
           pageStart={0}
           loadMore={this.handleLoadMore}
           hasMore={true || false}
-          loader={<div className='loader' key={0}>There are no more feeds.</div>}
+          loader={<div className='loader' key={0}><span className='lds-dual-ring'></span><span>Loading feeds...</span></div>}
           useWindow={true}
         >
           {feedItems}

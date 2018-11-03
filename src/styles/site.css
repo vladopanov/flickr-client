@@ -1,5 +1,5 @@
 /* Feeds */
-.description-img {
+.feed-img {
   text-align: center;
 }
 
@@ -51,22 +51,8 @@
   text-align: center;
 }
 
-.loader {
-  animation: pulse 1s ease-in infinite;
-}
-
 .clear-button {
   cursor: pointer;
-}
-
-@keyframes pulse {
-  25% {
-    transform: scale(0.9);
-  }
-
-  75% {
-    transform: scale(1.1);
-  }
 }
 
 /* The switch - the box around the slider */
@@ -92,7 +78,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: tomato;
+  background-color: #ccc;
   -webkit-transition: .4s;
   transition: .4s;
 }
@@ -130,4 +116,34 @@ input:checked+.slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+/* Loader feeds spinner */
+.loader {
+  margin-left: 32px;
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 46px;
+  height: 46px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  border-color: greenyellow transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

@@ -11,20 +11,20 @@ export class FeedItem extends React.Component<IProps, {}> {
     const description = this.mapDescription();
     return (
       <div className='col-sm-6 col-lg-4 feed'>
-        <div className='description-img'>{description[1]}</div>
+        <div className='feed-img'>{description[1]}</div>
         <div className='card-body'>
           <div className='card-text title'>
             <a target='_blank' rel='noopener noreferrer' href={this.props.feed.imageFlickrLink}>{this.props.feed.imageTitle}</a>
             &nbsp;by&nbsp;
             <a target='_blank' rel='noopener noreferrer' href={this.props.feed.authorFlickrLink}>{this.props.feed.authorName}</a>
           </div>
-          <div>
+          {description[2] && <div>
             <strong>Description: </strong>
-            <span className='description'>{description[2] ? description[2] : null}</span>
-          </div>
-          <div className='tags'>
+            <span className='description'>{description[2]}</span>
+          </div>}
+          {this.props.feed.tags && <div className='tags'>
             <strong>Tags:</strong> <span>{this.props.feed.tags}</span>
-          </div>
+          </div>}
         </div>
       </div>
     );
