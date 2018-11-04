@@ -32,7 +32,7 @@ export class FeedStore {
 
   @action
   public async loadMoreFeeds(): Promise<void> {
-    const feeds = await this.feedService.fetchFeeds(this.tags);
+    const feeds = await this.feedService.fetchFeeds(this.tags, this.isSafe);
     this.setFeeds(feeds);
   }
 
