@@ -34,7 +34,8 @@
       "mobx",
       "mobx-react",
       "react",
-      "react-dom"
+      "react-dom",
+      "jasmine"
     ]
   },
   "exclude": [
