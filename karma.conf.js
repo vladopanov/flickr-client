@@ -6,14 +6,10 @@ module.exports = function (config) {
   config.set({
     basePath: "",
     frameworks: ["jasmine"],
-    // files: ["**/*.tests.ts"],
     files: [
       TESTS_SETUP_PATH
     ],
     exclude: [],
-    // preprocessors: {
-    //   "**/*.tests.ts": ["webpack"]
-    // },
     preprocessors: {
       [TESTS_SETUP_PATH]: ['webpack']
     },

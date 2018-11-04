@@ -9,6 +9,7 @@ export class FeedFilter extends React.Component<IProps, {}> {
     super(props);
     this.handleClickSearchButton = this.handleClickSearchButton.bind(this);
   }
+
   public render() {
     return (
       <div className='feed-filter'>
