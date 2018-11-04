@@ -22,7 +22,7 @@ export class App {
 
   private registerServices(): void {
     this.safeModeService = new SafeModeService();
-    this.photoService = new FeedService(this.safeModeService);
+    this.photoService = new FeedService();
   }
 
   private registerStores(): void {
